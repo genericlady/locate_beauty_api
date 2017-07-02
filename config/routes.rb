@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users
+
+  post 'auth_user' => 'authentication#authenticate_user'
+
+  authenticated do
+    root 'home#index'
+  end
+
+  root 'guest#index'
 end
