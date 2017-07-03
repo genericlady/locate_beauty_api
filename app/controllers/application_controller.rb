@@ -3,7 +3,6 @@ class ApplicationController < ActionController::API
 
   protected
   def authenticate_request!
-    binding.pry
     unless user_id_in_token?
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
       return
@@ -15,7 +14,11 @@ class ApplicationController < ActionController::API
 
   private
   def http_token
-    @http_token ||= if request.headers['Authorization'].present?
+    @http_token ||= get_http_token
+  end
+
+  def get_http_token
+    if request.headers['Authorization'].present?
       request.headers['Authorization'].split(' ').last
     end
   end

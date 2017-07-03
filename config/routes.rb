@@ -3,9 +3,6 @@ Rails.application.routes.draw do
 
   post 'auth_user' => 'authentication#authenticate_user'
 
-  authenticated do
-    root 'home#index'
-  end
+  root 'home#index'
 
-  root 'guest#index'
 end
